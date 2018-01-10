@@ -1,0 +1,204 @@
+gdb src/thttpd-sp
+r -p 12594 -D -C config.txt
+//crashes the stack protect program
+
+break read_config
+set disassemble-next-line on
+set logging on gdb-sp.txt
+r -p 12594 -D -C config.txt
+
+//execute by each instruction at 1190 
+0x0804c1f1      1190        }
+   0x0804c1e3 <read_config+1203>:       83 c4 10        add    $0x10,%esp
+   0x0804c1e6 <read_config+1206>:       8b 44 24 7c     mov    0x7c(%esp),%eax
+   0x0804c1ea <read_config+1210>:       65 33 05 14 00 00 00    xor    %gs:0x14,%eax
+=> 0x0804c1f1 <read_config+1217>:       0f 85 a5 00 00 00       jne    0x804c29c <read_config+1388>
+   0x0804c1f7 <read_config+1223>:       81 c4 8c 00 00 00       add    $0x8c,%esp
+   0x0804c1fd <read_config+1229>:       5b      pop    %ebx
+   0x0804c1fe <read_config+1230>:       5e      pop    %esi
+   0x0804c1ff <read_config+1231>:       5f      pop    %edi
+   0x0804c200 <read_config+1232>:       5d      pop    %ebp
+   0x0804c201 <read_config+1233>:       c3      ret
+1190        }
+=> 0x0804c29c <read_config+1388>:       e8 8f d5 ff ff  call   0x8049830 <__stack_chk_fail@plt>
+
+Program received signal SIGSEGV, Segmentation fault.
+x86_fallback_frame_state (context=<optimized out>, context=<optimized out>, fs=0xffffb7c0)
+    at ./md-unwind-support.h:127
+127     ./md-unwind-support.h: No such file or directory.
+=> 0xf7fce1c6 <uw_frame_state_for+502>: 66 81 38 58 b8  cmpw   $0xb858,(%eax)
+   0xf7fce1cb <uw_frame_state_for+507>: 0f 84 97 02 00 00       je     0xf7fce468 <uw_frame_state_for+1176>
+    
+Program terminated with signal SIGSEGV, Segmentation fault.
+The program no longer exists.
+
+bt, f 6, info registers yields the following: 
+
+(gdb) f 6
+#6  0x0804c2a1 in read_config (filename=<optimized out>) at thttpd.c:1190
+1190	    }
+   0x0804c29c <read_config+1388>:	e8 8f d5 ff ff	call   0x8049830 <__stack_chk_fail@plt>
+(gdb) info f
+Stack level 6, frame at 0xffffc010:
+ eip = 0x804c2a1 in read_config (thttpd.c:1190); saved eip = 0x78787878
+ called by frame at 0xffffc014, caller of frame at 0xffffbf70
+ source language c.
+ Arglist at 0xffffbf7c, args: filename=<optimized out>
+ Locals at 0xffffbf7c, Previous frame's sp is 0xffffc010
+ Saved registers:
+  ebx at 0xffffbffc, ebp at 0xffffc008, esi at 0xffffc000, edi at 0xffffc004, eip at 0xffffc00c
+(gdb) info registers
+eax            0x78787878	2021161080
+ecx            0xffffc010	-16368
+edx            0x0	0
+ebx            0xffffc055	-16299
+esp            0xffffbf70	0xffffbf70
+ebp            0x800013	0x800013
+esi            0xffffc055	-16299
+edi            0xffffbf8d	-16499
+eip            0x804c2a1	0x804c2a1 <read_config+1393>
+eflags         0x10246	[ PF ZF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+
+5. Clearly, by the time the program reaches this point the RF fault flag has been set already. I decided to instead run through the program step by step in order to see when exactly the RF flag is set: 
+
+1190	    }
+=> 0x0804c29c <read_config+1388>:	e8 8f d5 ff ff	call   0x8049830 <__stack_chk_fail@plt>
+(gdb) info registers
+eax            0x6b32b678	1798485624
+ecx            0x8061000	134615040
+edx            0xf7f74450	-134790064
+ebx            0xffffc055	-16299
+esp            0xffffbf70	0xffffbf70
+ebp            0x800013	0x800013
+esi            0xffffc055	-16299
+edi            0xffffbf8d	-16499
+eip            0x804c29c	0x804c29c <read_config+1388>
+eflags         0x206	[ PF IF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+
+After executing the call instruction on the address 0x8049830. Because this part was compiled with strong stack protection, accessing a protected part of the stack will return an error. In this case, the overflow from config.txt caused the compiler to attempt to “call” a protected part of the stack, causing the segmentation fault error we see in GDB. 
+
+Similar process for thttpd-as: 
+
+break read_config
+set disassemble-next-line on
+set logging on gdb-as.txt
+r -p 12597 -D -C config.txt
+
+//Seg fault occurs in 1018 
+
+Error generated: 
+==8286==ERROR: AddressSanitizer: stack-buffer-overflow on address 0xffffbe34 at pc 0xf7a6dcf6 bp 0xffffbd88 sp 0xffffb960
+
+READ of size 206 at 0xffffbe34 thread T0
+
+6. The instruction that caused the Segmentation fault here was call 0x804a4b0 <strchr@plt>, as after this instruction the RF fault flag was set. Per the GNU documentation, -fsanitize=address detects out of bounds errors, which is precisely what happens when we introduce a port number with over 100 characters. Because this program was specifically compiled with the -fsanitize=address flag, the error generated identified this buffer overflow. This must have set the RF flag and consequently crashed the program. 
+
+bt generated the stack: 
+(gdb) bt
+#0  uw_frame_state_for (context=context@entry=0xffffa7e0, fs=fs@entry=0xffffa860) at ../../../../gcc-7.2.0/libgcc/unwind-dw2.c:1257
+#1  0xf7610818 in _Unwind_Backtrace (trace=0xf7b24680 <__sanitizer::Unwind_Trace(_Unwind_Context*, void*)>, trace_argument=0xffffa958)
+    at ../../../../gcc-7.2.0/libgcc/unwind.inc:290
+#2  0xf7b247db in __sanitizer::BufferedStackTrace::SlowUnwindStack (this=0xffffaa80, pc=4154907894, max_depth=256)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_unwind_linux_libcdep.cc:123
+#3  0xf7b1eac6 in __sanitizer::BufferedStackTrace::Unwind (this=0xffffaa80, max_depth=256, pc=4154907894, bp=4294950280, context=0x0, 
+    stack_top=4294959104, stack_bottom=4286570496, request_fast_unwind=false)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_stacktrace_libcdep.cc:74
+#4  0xf7a403cc in __asan::GetStackTraceWithPcBpAndContext (fast=false, context=0x0, bp=4294950280, pc=4154907894, max_depth=256, 
+    stack=0xffffaa80) at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_stack.h:50
+#5  __asan::ErrorGeneric::Print (this=0xf7bac264 <__asan::ScopedInErrorReport::current_error_+4>)
+    at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_errors.cc:482
+#6  0xf7b02868 in __asan::ErrorDescription::Print (this=0xf7bac260 <__asan::ScopedInErrorReport::current_error_>)
+    at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_errors.h:360
+#7  __asan::ScopedInErrorReport::~ScopedInErrorReport (this=0xffffaedf, __in_chrg=<optimized out>)
+    at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_report.cc:167
+#8  __asan::ReportGenericError (pc=4154907894, bp=4294950280, sp=4294949216, addr=4294950452, is_write=false, access_size=206, exp=0, 
+    fatal=false) at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_report.cc:397
+#9  0xf7a6dd11 in __interceptor_strchr (s=<optimized out>, c=<optimized out>)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:466
+#10 0x0804ee87 in read_config (filename=<optimized out>) at thttpd.c:1018
+#11 0x78787878 in ?? ()
+#12 0x78787878 in ?? ()
+#13 0x78787878 in ?? ()
+#14 0x78787878 in ?? ()
+#15 0x0000000a in ?? ()
+#16 0xffffd198 in ?? ()
+Backtrace stopped: previous frame inner to this frame (corrupt stack?) 
+
+Looking at info for 10 (where the crash occured), we see that, indeed, after the call function was called, the program crashed. 
+
+7. performed backtrace, got the following error and register info: 
+
+(gdb) f 0
+#0  0x0000000000404c8c in read_config (filename=<optimized out>) at thttpd.c:1190
+1190	    }
+   0x0000000000404c80 <read_config+1104>:	48 83 c4 70	add    $0x70,%rsp
+   0x0000000000404c84 <read_config+1108>:	5b	pop    %rbx
+   0x0000000000404c85 <read_config+1109>:	5d	pop    %rbp
+   0x0000000000404c86 <read_config+1110>:	41 5c	pop    %r12
+   0x0000000000404c88 <read_config+1112>:	41 5d	pop    %r13
+   0x0000000000404c8a <read_config+1114>:	41 5e	pop    %r14
+=> 0x0000000000404c8c <read_config+1116>:	c3	retq   
+(gdb) info registers
+rax            0x0	0
+rbx            0x7878787878787878	8680820740569200760
+rcx            0x0	0
+rdx            0x7ffff7995fe0	140737347411936
+rsi            0x7ffff79957b8	140737347409848
+rdi            0x20000	131072
+rbp            0x7878787878787878	0x7878787878787878
+rsp            0x7fffffffce58	0x7fffffffce58
+r8             0x1	1
+r9             0x7ffff7fcc740	140737353926464
+r10            0x7fffffffcad0	140737488341712
+r11            0x206	518
+r12            0x7878787878787878	8680820740569200760
+r13            0x7878787878787878	8680820740569200760
+r14            0x7878787878787878	8680820740569200760
+r15            0x5	5
+rip            0x404c8c	0x404c8c <read_config+1116>
+eflags         0x10206	[ PF IF RF ]
+cs             0x33	51
+ss             0x2b	43
+ds             0x0	0
+es             0x0	0
+fs             0x0	0
+gs             0x0	0
+
+	Program throws a Segmentation fault after the return of the read_config function. %rbp has a lower address on the stack than %rsp, so when it hits the return command, the base of the stack frame is at a lower address than %rsp which throws an error. 
+
+
+8. Handle read checks if there is enough room in the buffer to read more bytes, and if there is, will read more bytes. If there is a valid connection and a file to send to it, it will send the file. 
+ 
+SP: For strong stack protection, declarations of arrays, unions, structs, and functions using local variable addresses get protected with a canary to prevent smash attacks. handle_read uses the strong stack protection particularly in the segment: 
+
+if ( hc->read_idx >= hc->read_size )
+        {
+        if ( hc->read_size > 5000 )
+            {
+            httpd_send_err( hc, 400, httpd_err400title, "", httpd_err400form, "" );
+            finish_connection( c, tvP );
+            return;
+            }
+        httpd_realloc_str(
+            &hc->read_buf, &hc->read_size, hc->read_size + 1000 );
+        } 
+
+which uses the address of a local variable. The function httpd_realloc_str will be protected as will any other functions called in this way by handle_read. Compared to AS, much less data is pushed on the stack at runtime. Appears to generate the same assembly code as NO. 
+
+AS: AddressSanitizer finds out-of-bounds accesses to stack by creating a “poisoned rezone” around objects at runtime. Compared to the assembly files for NO and SP, with address sanitizer, much more data from registers is pushed on the stack initially, supposedly to create these redzones which detect out of bounds errors. 
+
+NO: Does not protect stack and makes stack executable 
+
+

@@ -1,0 +1,203 @@
+Starting program: /w/home.20/class/classbib/Documents/smashing-lab/sthttpd-2.27.0/src/thttpd-sp -p 12594 -D -C config.txt
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+
+Breakpoint 1, read_config (filename=0xffffd426 "config.txt") at thttpd.c:1000
+1000	    {
+=> 0x0804bd30 <read_config+0>:	55	push   %ebp
+   0x0804bd31 <read_config+1>:	57	push   %edi
+   0x0804bd32 <read_config+2>:	56	push   %esi
+   0x0804bd33 <read_config+3>:	53	push   %ebx
+   0x0804bd34 <read_config+4>:	89 c3	mov    %eax,%ebx
+   0x0804bd36 <read_config+6>:	81 ec 94 00 00 00	sub    $0x94,%esp
+1008	    fp = fopen( filename, "r" );
+=> 0x0804bd4b <read_config+27>:	68 69 62 05 08	push   $0x8056269
+   0x0804bd50 <read_config+32>:	53	push   %ebx
+   0x0804bd51 <read_config+33>:	e8 2a de ff ff	call   0x8049b80 <fopen@plt>
+   0x0804bd56 <read_config+38>:	89 44 24 1c	mov    %eax,0x1c(%esp)
+1009	    if ( fp == (FILE*) 0 )
+=> 0x0804bd5a <read_config+42>:	83 c4 10	add    $0x10,%esp
+   0x0804bd5d <read_config+45>:	85 c0	test   %eax,%eax
+   0x0804bd5f <read_config+47>:	0f 84 22 05 00 00	je     0x804c287 <read_config+1367>
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804bd65 <read_config+53>:	bd 13 00 80 00	mov    $0x800013,%ebp
+1015	    while ( fgets( line, 1000, fp ) != (char*) 0 )
+=> 0x0804bd6a <read_config+58>:	83 ec 04	sub    $0x4,%esp
+   0x0804bd6d <read_config+61>:	ff 74 24 10	pushl  0x10(%esp)
+   0x0804bd71 <read_config+65>:	68 e8 03 00 00	push   $0x3e8
+   0x0804bd76 <read_config+70>:	8d 44 24 24	lea    0x24(%esp),%eax
+   0x0804bd7a <read_config+74>:	50	push   %eax
+   0x0804bd7b <read_config+75>:	e8 20 da ff ff	call   0x80497a0 <fgets@plt>
+   0x0804bd80 <read_config+80>:	83 c4 10	add    $0x10,%esp
+   0x0804bd83 <read_config+83>:	85 c0	test   %eax,%eax
+   0x0804bd85 <read_config+85>:	0f 84 4c 04 00 00	je     0x804c1d7 <read_config+1191>
+1018		if ( ( cp = strchr( line, '#' ) ) != (char*) 0 )
+=> 0x0804bd8b <read_config+91>:	83 ec 08	sub    $0x8,%esp
+   0x0804bd8e <read_config+94>:	6a 23	push   $0x23
+   0x0804bd90 <read_config+96>:	8d 44 24 24	lea    0x24(%esp),%eax
+   0x0804bd94 <read_config+100>:	50	push   %eax
+   0x0804bd95 <read_config+101>:	e8 16 dd ff ff	call   0x8049ab0 <strchr@plt>
+   0x0804bd9a <read_config+106>:	83 c4 10	add    $0x10,%esp
+   0x0804bd9d <read_config+109>:	85 c0	test   %eax,%eax
+   0x0804bd9f <read_config+111>:	74 03	je     0x804bda4 <read_config+116>
+1023		cp += strspn( cp, " \t\n\r" );
+=> 0x0804bda4 <read_config+116>:	83 ec 08	sub    $0x8,%esp
+   0x0804bda7 <read_config+119>:	68 87 61 05 08	push   $0x8056187
+   0x0804bdac <read_config+124>:	8d 44 24 24	lea    0x24(%esp),%eax
+   0x0804bdb0 <read_config+128>:	50	push   %eax
+   0x0804bdb1 <read_config+129>:	e8 0a e0 ff ff	call   0x8049dc0 <strspn@plt>
+   0x0804bdb6 <read_config+134>:	83 c4 10	add    $0x10,%esp
+   0x0804bdb9 <read_config+137>:	8d 4c 24 18	lea    0x18(%esp),%ecx
+   0x0804bdbd <read_config+141>:	8d 34 01	lea    (%ecx,%eax,1),%esi
+1026		while ( *cp != '\0' )
+=> 0x0804bdc0 <read_config+144>:	80 3e 00	cmpb   $0x0,(%esi)
+   0x0804bdc3 <read_config+147>:	74 a5	je     0x804bd6a <read_config+58>
+   0x0804bdc5 <read_config+149>:	8d 76 00	lea    0x0(%esi),%esi
+1029		    cp2 = cp + strcspn( cp, " \t\n\r" );
+=> 0x0804bdc8 <read_config+152>:	83 ec 08	sub    $0x8,%esp
+   0x0804bdcb <read_config+155>:	68 87 61 05 08	push   $0x8056187
+   0x0804bdd0 <read_config+160>:	56	push   %esi
+   0x0804bdd1 <read_config+161>:	e8 5a d9 ff ff	call   0x8049730 <strcspn@plt>
+   0x0804bdd6 <read_config+166>:	8d 1c 06	lea    (%esi,%eax,1),%ebx
+   0x0804bdd9 <read_config+169>:	83 c4 10	add    $0x10,%esp
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804bddc <read_config+172>:	0f b6 03	movzbl (%ebx),%eax
+   0x0804bddf <read_config+175>:	83 e8 09	sub    $0x9,%eax
+   0x0804bde2 <read_config+178>:	3c 17	cmp    $0x17,%al
+   0x0804bde4 <read_config+180>:	0f 86 d6 02 00 00	jbe    0x804c0c0 <read_config+912>
+   0x0804bdea <read_config+186>:	8d b6 00 00 00 00	lea    0x0(%esi),%esi
+1032			*cp2++ = '\0';
+=> 0x0804c0c9 <read_config+921>:	83 c3 01	add    $0x1,%ebx
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804c0cc <read_config+924>:	0f b6 03	movzbl (%ebx),%eax
+1032			*cp2++ = '\0';
+=> 0x0804c0cf <read_config+927>:	c6 43 ff 00	movb   $0x0,-0x1(%ebx)
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804c0d3 <read_config+931>:	83 e8 09	sub    $0x9,%eax
+   0x0804c0d6 <read_config+934>:	3c 17	cmp    $0x17,%al
+   0x0804c0d8 <read_config+936>:	0f 87 12 fd ff ff	ja     0x804bdf0 <read_config+192>
+   0x0804c0de <read_config+942>:	eb e0	jmp    0x804c0c0 <read_config+912>
+1035		    value = strchr( name, '=' );
+=> 0x0804bdf0 <read_config+192>:	83 ec 08	sub    $0x8,%esp
+   0x0804bdf3 <read_config+195>:	31 ff	xor    %edi,%edi
+   0x0804bdf5 <read_config+197>:	6a 3d	push   $0x3d
+   0x0804bdf7 <read_config+199>:	56	push   %esi
+   0x0804bdf8 <read_config+200>:	e8 b3 dc ff ff	call   0x8049ab0 <strchr@plt>
+   0x0804bdfd <read_config+205>:	83 c4 10	add    $0x10,%esp
+1036		    if ( value != (char*) 0 )
+=> 0x0804be00 <read_config+208>:	85 c0	test   %eax,%eax
+   0x0804be02 <read_config+210>:	74 06	je     0x804be0a <read_config+218>
+1037			*value++ = '\0';
+=> 0x0804be04 <read_config+212>:	8d 78 01	lea    0x1(%eax),%edi
+   0x0804be07 <read_config+215>:	c6 00 00	movb   $0x0,(%eax)
+1039		    if ( strcasecmp( name, "debug" ) == 0 )
+=> 0x0804be0a <read_config+218>:	83 ec 08	sub    $0x8,%esp
+   0x0804be0d <read_config+221>:	68 8c 61 05 08	push   $0x805618c
+   0x0804be12 <read_config+226>:	56	push   %esi
+   0x0804be13 <read_config+227>:	e8 18 dd ff ff	call   0x8049b30 <strcasecmp@plt>
+   0x0804be18 <read_config+232>:	83 c4 10	add    $0x10,%esp
+   0x0804be1b <read_config+235>:	85 c0	test   %eax,%eax
+   0x0804be1d <read_config+237>:	0f 84 bd 02 00 00	je     0x804c0e0 <read_config+944>
+1044		    else if ( strcasecmp( name, "port" ) == 0 )
+=> 0x0804be23 <read_config+243>:	83 ec 08	sub    $0x8,%esp
+   0x0804be26 <read_config+246>:	68 92 61 05 08	push   $0x8056192
+   0x0804be2b <read_config+251>:	56	push   %esi
+   0x0804be2c <read_config+252>:	e8 ff dc ff ff	call   0x8049b30 <strcasecmp@plt>
+   0x0804be31 <read_config+257>:	83 c4 10	add    $0x10,%esp
+   0x0804be34 <read_config+260>:	85 c0	test   %eax,%eax
+   0x0804be36 <read_config+262>:	0f 84 dc 02 00 00	je     0x804c118 <read_config+1000>
+1046			value_required( name, value );
+=> 0x0804c118 <read_config+1000>:	89 fa	mov    %edi,%edx
+   0x0804c11a <read_config+1002>:	89 f0	mov    %esi,%eax
+   0x0804c11c <read_config+1004>:	e8 5f f9 ff ff	call   0x804ba80 <value_required>
+1047			port = (unsigned short) atoi( value );
+=> 0x0804c121 <read_config+1009>:	83 ec 0c	sub    $0xc,%esp
+   0x0804c124 <read_config+1012>:	57	push   %edi
+   0x0804c125 <read_config+1013>:	e8 d6 db ff ff	call   0x8049d00 <atoi@plt>
+   0x0804c12a <read_config+1018>:	83 c4 10	add    $0x10,%esp
+   0x0804c12d <read_config+1021>:	66 a3 6c 00 06 08	mov    %ax,0x806006c
+   0x0804c133 <read_config+1027>:	eb be	jmp    0x804c0f3 <read_config+963>
+1185		    cp += strspn( cp, " \t\n\r" );
+=> 0x0804c0f3 <read_config+963>:	83 ec 08	sub    $0x8,%esp
+   0x0804c0f6 <read_config+966>:	68 87 61 05 08	push   $0x8056187
+   0x0804c0fb <read_config+971>:	53	push   %ebx
+   0x0804c0fc <read_config+972>:	e8 bf dc ff ff	call   0x8049dc0 <strspn@plt>
+   0x0804c101 <read_config+977>:	8d 34 03	lea    (%ebx,%eax,1),%esi
+   0x0804c104 <read_config+980>:	83 c4 10	add    $0x10,%esp
+1026		while ( *cp != '\0' )
+=> 0x0804c107 <read_config+983>:	80 3e 00	cmpb   $0x0,(%esi)
+   0x0804c10a <read_config+986>:	0f 85 b8 fc ff ff	jne    0x804bdc8 <read_config+152>
+   0x0804c110 <read_config+992>:	e9 55 fc ff ff	jmp    0x804bd6a <read_config+58>
+   0x0804c115 <read_config+997>:	8d 76 00	lea    0x0(%esi),%esi
+1015	    while ( fgets( line, 1000, fp ) != (char*) 0 )
+=> 0x0804bd6a <read_config+58>:	83 ec 04	sub    $0x4,%esp
+   0x0804bd6d <read_config+61>:	ff 74 24 10	pushl  0x10(%esp)
+   0x0804bd71 <read_config+65>:	68 e8 03 00 00	push   $0x3e8
+   0x0804bd76 <read_config+70>:	8d 44 24 24	lea    0x24(%esp),%eax
+   0x0804bd7a <read_config+74>:	50	push   %eax
+   0x0804bd7b <read_config+75>:	e8 20 da ff ff	call   0x80497a0 <fgets@plt>
+   0x0804bd80 <read_config+80>:	83 c4 10	add    $0x10,%esp
+   0x0804bd83 <read_config+83>:	85 c0	test   %eax,%eax
+   0x0804bd85 <read_config+85>:	0f 84 4c 04 00 00	je     0x804c1d7 <read_config+1191>
+1189	    (void) fclose( fp );
+=> 0x0804c1d7 <read_config+1191>:	83 ec 0c	sub    $0xc,%esp
+   0x0804c1da <read_config+1194>:	ff 74 24 18	pushl  0x18(%esp)
+   0x0804c1de <read_config+1198>:	e8 dd d5 ff ff	call   0x80497c0 <fclose@plt>
+1190	    }
+=> 0x0804c1e3 <read_config+1203>:	83 c4 10	add    $0x10,%esp
+   0x0804c1e6 <read_config+1206>:	8b 44 24 7c	mov    0x7c(%esp),%eax
+   0x0804c1ea <read_config+1210>:	65 33 05 14 00 00 00	xor    %gs:0x14,%eax
+   0x0804c1f1 <read_config+1217>:	0f 85 a5 00 00 00	jne    0x804c29c <read_config+1388>
+   0x0804c1f7 <read_config+1223>:	81 c4 8c 00 00 00	add    $0x8c,%esp
+   0x0804c1fd <read_config+1229>:	5b	pop    %ebx
+   0x0804c1fe <read_config+1230>:	5e	pop    %esi
+   0x0804c1ff <read_config+1231>:	5f	pop    %edi
+   0x0804c200 <read_config+1232>:	5d	pop    %ebp
+   0x0804c201 <read_config+1233>:	c3	ret    
+0x0804c1e6	1190	    }
+   0x0804c1e3 <read_config+1203>:	83 c4 10	add    $0x10,%esp
+=> 0x0804c1e6 <read_config+1206>:	8b 44 24 7c	mov    0x7c(%esp),%eax
+   0x0804c1ea <read_config+1210>:	65 33 05 14 00 00 00	xor    %gs:0x14,%eax
+   0x0804c1f1 <read_config+1217>:	0f 85 a5 00 00 00	jne    0x804c29c <read_config+1388>
+   0x0804c1f7 <read_config+1223>:	81 c4 8c 00 00 00	add    $0x8c,%esp
+   0x0804c1fd <read_config+1229>:	5b	pop    %ebx
+   0x0804c1fe <read_config+1230>:	5e	pop    %esi
+   0x0804c1ff <read_config+1231>:	5f	pop    %edi
+   0x0804c200 <read_config+1232>:	5d	pop    %ebp
+   0x0804c201 <read_config+1233>:	c3	ret    
+0x0804c1ea	1190	    }
+   0x0804c1e3 <read_config+1203>:	83 c4 10	add    $0x10,%esp
+   0x0804c1e6 <read_config+1206>:	8b 44 24 7c	mov    0x7c(%esp),%eax
+=> 0x0804c1ea <read_config+1210>:	65 33 05 14 00 00 00	xor    %gs:0x14,%eax
+   0x0804c1f1 <read_config+1217>:	0f 85 a5 00 00 00	jne    0x804c29c <read_config+1388>
+   0x0804c1f7 <read_config+1223>:	81 c4 8c 00 00 00	add    $0x8c,%esp
+   0x0804c1fd <read_config+1229>:	5b	pop    %ebx
+   0x0804c1fe <read_config+1230>:	5e	pop    %esi
+   0x0804c1ff <read_config+1231>:	5f	pop    %edi
+   0x0804c200 <read_config+1232>:	5d	pop    %ebp
+   0x0804c201 <read_config+1233>:	c3	ret    
+0x0804c1f1	1190	    }
+   0x0804c1e3 <read_config+1203>:	83 c4 10	add    $0x10,%esp
+   0x0804c1e6 <read_config+1206>:	8b 44 24 7c	mov    0x7c(%esp),%eax
+   0x0804c1ea <read_config+1210>:	65 33 05 14 00 00 00	xor    %gs:0x14,%eax
+=> 0x0804c1f1 <read_config+1217>:	0f 85 a5 00 00 00	jne    0x804c29c <read_config+1388>
+   0x0804c1f7 <read_config+1223>:	81 c4 8c 00 00 00	add    $0x8c,%esp
+   0x0804c1fd <read_config+1229>:	5b	pop    %ebx
+   0x0804c1fe <read_config+1230>:	5e	pop    %esi
+   0x0804c1ff <read_config+1231>:	5f	pop    %edi
+   0x0804c200 <read_config+1232>:	5d	pop    %ebp
+   0x0804c201 <read_config+1233>:	c3	ret    
+1190	    }
+=> 0x0804c29c <read_config+1388>:	e8 8f d5 ff ff	call   0x8049830 <__stack_chk_fail@plt>
+
+Program received signal SIGSEGV, Segmentation fault.
+x86_fallback_frame_state (context=<optimized out>, context=<optimized out>, fs=0xffffb7c0)
+    at ./md-unwind-support.h:127
+127	./md-unwind-support.h: No such file or directory.
+=> 0xf7fce1c6 <uw_frame_state_for+502>:	66 81 38 58 b8	cmpw   $0xb858,(%eax)
+   0xf7fce1cb <uw_frame_state_for+507>:	0f 84 97 02 00 00	je     0xf7fce468 <uw_frame_state_for+1176>
+
+Program terminated with signal SIGSEGV, Segmentation fault.
+The program no longer exists.
+Note: breakpoint 1 also set at pc 0x804bd30.
+Breakpoint 2 at 0x804bd30: file thttpd.c, line 1000.

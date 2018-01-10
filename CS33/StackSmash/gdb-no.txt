@@ -1,0 +1,297 @@
+Starting program:  -p 12600 -D -C config.txt
+No executable file specified.
+Use the "file" or "exec-file" command.
+Starting program: /w/home.20/class/classbib/Documents/smashing-lab/sthttpd-2.27.0/src/thttpd-no -p 12600 -D -C config.txt
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+
+Program received signal SIGSEGV, Segmentation fault.
+0x78787878 in ?? ()
+=> 0x78787878:	Cannot access memory at address 0x78787878
+#0  0x78787878 in ?? ()
+#1  0x78787878 in ?? ()
+#2  0x78787878 in ?? ()
+#3  0x78787878 in ?? ()
+#4  0x78787878 in ?? ()
+#5  0x78787878 in ?? ()
+#6  0x78787878 in ?? ()
+#7  0x78787878 in ?? ()
+#8  0x78787878 in ?? ()
+#9  0x78787878 in ?? ()
+#10 0x78787878 in ?? ()
+#11 0x78787878 in ?? ()
+#12 0x78787878 in ?? ()
+#13 0x78787878 in ?? ()
+#14 0x78787878 in ?? ()
+#15 0x78787878 in ?? ()
+#16 0x78787878 in ?? ()
+#17 0x78787878 in ?? ()
+#18 0x78787878 in ?? ()
+#19 0xf7d90000 in ?? ()
+#20 0xf7fec2ba in _dl_allocate_tls_init () from /lib/ld-linux.so.2
+#21 0xf7fde922 in dl_main () from /lib/ld-linux.so.2
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
+#20 0xf7fec2ba in _dl_allocate_tls_init () from /lib/ld-linux.so.2
+=> 0xf7fec2ba <_dl_allocate_tls_init+282>:	8b 44 24 0c	mov    0xc(%esp),%eax
+eax            0x0	0
+ecx            0x8061000	134615040
+edx            0xf7f74450	-134790064
+ebx            0x78787878	2021161080
+esp            0xffffc060	0xffffc060
+ebp            0x78787878	0x78787878
+esi            0x78787878	2021161080
+edi            0x78787878	2021161080
+eip            0xf7fec2ba	0xf7fec2ba <_dl_allocate_tls_init+282>
+eflags         0x10286	[ PF SF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+#21 0xf7fde922 in dl_main () from /lib/ld-linux.so.2
+=> 0xf7fde922 <dl_main+10930>:	8d 65 f4	lea    -0xc(%ebp),%esp
+eax            0x0	0
+ecx            0x8061000	134615040
+edx            0xf7f74450	-134790064
+ebx            0xf7ffcfb8	-134230088
+esp            0xffffc0a0	0xffffc0a0
+ebp            0xf7ffcfb8	0xf7ffcfb8
+esi            0x0	0
+edi            0xf7feffb6	-134283338
+eip            0xf7fde922	0xf7fde922 <dl_main+10930>
+eflags         0x10286	[ PF SF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+Breakpoint 1 at 0x804bbf0: file thttpd.c, line 1000.
+Starting program: /w/home.20/class/classbib/Documents/smashing-lab/sthttpd-2.27.0/src/thttpd-no -p 12600 -D -C config.txt
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+
+Breakpoint 1, read_config (filename=0xffffd427 "config.txt") at thttpd.c:1000
+1000	    {
+=> 0x0804bbf0 <read_config+0>:	55	push   %ebp
+   0x0804bbf1 <read_config+1>:	57	push   %edi
+   0x0804bbf2 <read_config+2>:	56	push   %esi
+   0x0804bbf3 <read_config+3>:	53	push   %ebx
+   0x0804bbf4 <read_config+4>:	89 c3	mov    %eax,%ebx
+   0x0804bbf6 <read_config+6>:	81 ec 94 00 00 00	sub    $0x94,%esp
+1008	    fp = fopen( filename, "r" );
+=> 0x0804bbfc <read_config+12>:	68 89 5d 05 08	push   $0x8055d89
+   0x0804bc01 <read_config+17>:	50	push   %eax
+   0x0804bc02 <read_config+18>:	e8 19 df ff ff	call   0x8049b20 <fopen@plt>
+   0x0804bc07 <read_config+23>:	89 44 24 1c	mov    %eax,0x1c(%esp)
+1009	    if ( fp == (FILE*) 0 )
+=> 0x0804bc0b <read_config+27>:	83 c4 10	add    $0x10,%esp
+   0x0804bc0e <read_config+30>:	85 c0	test   %eax,%eax
+   0x0804bc10 <read_config+32>:	0f 84 1d 05 00 00	je     0x804c133 <read_config+1347>
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804bc16 <read_config+38>:	bd 13 00 80 00	mov    $0x800013,%ebp
+1015	    while ( fgets( line, 1000, fp ) != (char*) 0 )
+=> 0x0804bc1b <read_config+43>:	83 ec 04	sub    $0x4,%esp
+   0x0804bc1e <read_config+46>:	ff 74 24 10	pushl  0x10(%esp)
+   0x0804bc22 <read_config+50>:	68 e8 03 00 00	push   $0x3e8
+   0x0804bc27 <read_config+55>:	8d 44 24 28	lea    0x28(%esp),%eax
+   0x0804bc2b <read_config+59>:	50	push   %eax
+   0x0804bc2c <read_config+60>:	e8 1f db ff ff	call   0x8049750 <fgets@plt>
+   0x0804bc31 <read_config+65>:	83 c4 10	add    $0x10,%esp
+   0x0804bc34 <read_config+68>:	85 c0	test   %eax,%eax
+   0x0804bc36 <read_config+70>:	0f 84 5b 04 00 00	je     0x804c097 <read_config+1191>
+1018		if ( ( cp = strchr( line, '#' ) ) != (char*) 0 )
+=> 0x0804bc3c <read_config+76>:	83 ec 08	sub    $0x8,%esp
+   0x0804bc3f <read_config+79>:	6a 23	push   $0x23
+   0x0804bc41 <read_config+81>:	8d 44 24 28	lea    0x28(%esp),%eax
+   0x0804bc45 <read_config+85>:	50	push   %eax
+   0x0804bc46 <read_config+86>:	e8 05 de ff ff	call   0x8049a50 <strchr@plt>
+   0x0804bc4b <read_config+91>:	83 c4 10	add    $0x10,%esp
+   0x0804bc4e <read_config+94>:	85 c0	test   %eax,%eax
+   0x0804bc50 <read_config+96>:	74 03	je     0x804bc55 <read_config+101>
+1023		cp += strspn( cp, " \t\n\r" );
+=> 0x0804bc55 <read_config+101>:	83 ec 08	sub    $0x8,%esp
+   0x0804bc58 <read_config+104>:	68 a7 5c 05 08	push   $0x8055ca7
+   0x0804bc5d <read_config+109>:	8d 44 24 28	lea    0x28(%esp),%eax
+   0x0804bc61 <read_config+113>:	50	push   %eax
+   0x0804bc62 <read_config+114>:	e8 f9 e0 ff ff	call   0x8049d60 <strspn@plt>
+   0x0804bc67 <read_config+119>:	83 c4 10	add    $0x10,%esp
+   0x0804bc6a <read_config+122>:	8d 4c 24 1c	lea    0x1c(%esp),%ecx
+   0x0804bc6e <read_config+126>:	8d 34 01	lea    (%ecx,%eax,1),%esi
+1026		while ( *cp != '\0' )
+=> 0x0804bc71 <read_config+129>:	80 3e 00	cmpb   $0x0,(%esi)
+   0x0804bc74 <read_config+132>:	74 a5	je     0x804bc1b <read_config+43>
+   0x0804bc76 <read_config+134>:	8d 76 00	lea    0x0(%esi),%esi
+   0x0804bc79 <read_config+137>:	8d bc 27 00 00 00 00	lea    0x0(%edi,%eiz,1),%edi
+1029		    cp2 = cp + strcspn( cp, " \t\n\r" );
+=> 0x0804bc80 <read_config+144>:	83 ec 08	sub    $0x8,%esp
+   0x0804bc83 <read_config+147>:	68 a7 5c 05 08	push   $0x8055ca7
+   0x0804bc88 <read_config+152>:	56	push   %esi
+   0x0804bc89 <read_config+153>:	e8 52 da ff ff	call   0x80496e0 <strcspn@plt>
+   0x0804bc8e <read_config+158>:	8d 1c 06	lea    (%esi,%eax,1),%ebx
+   0x0804bc91 <read_config+161>:	83 c4 10	add    $0x10,%esp
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804bc94 <read_config+164>:	0f b6 03	movzbl (%ebx),%eax
+   0x0804bc97 <read_config+167>:	83 e8 09	sub    $0x9,%eax
+   0x0804bc9a <read_config+170>:	3c 17	cmp    $0x17,%al
+   0x0804bc9c <read_config+172>:	0f 86 de 02 00 00	jbe    0x804bf80 <read_config+912>
+   0x0804bca2 <read_config+178>:	8d b6 00 00 00 00	lea    0x0(%esi),%esi
+1032			*cp2++ = '\0';
+=> 0x0804bf89 <read_config+921>:	83 c3 01	add    $0x1,%ebx
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804bf8c <read_config+924>:	0f b6 03	movzbl (%ebx),%eax
+1032			*cp2++ = '\0';
+=> 0x0804bf8f <read_config+927>:	c6 43 ff 00	movb   $0x0,-0x1(%ebx)
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804bf93 <read_config+931>:	83 e8 09	sub    $0x9,%eax
+   0x0804bf96 <read_config+934>:	3c 17	cmp    $0x17,%al
+   0x0804bf98 <read_config+936>:	0f 87 0a fd ff ff	ja     0x804bca8 <read_config+184>
+   0x0804bf9e <read_config+942>:	eb e0	jmp    0x804bf80 <read_config+912>
+1035		    value = strchr( name, '=' );
+=> 0x0804bca8 <read_config+184>:	83 ec 08	sub    $0x8,%esp
+   0x0804bcab <read_config+187>:	31 ff	xor    %edi,%edi
+   0x0804bcad <read_config+189>:	6a 3d	push   $0x3d
+   0x0804bcaf <read_config+191>:	56	push   %esi
+   0x0804bcb0 <read_config+192>:	e8 9b dd ff ff	call   0x8049a50 <strchr@plt>
+   0x0804bcb5 <read_config+197>:	83 c4 10	add    $0x10,%esp
+1036		    if ( value != (char*) 0 )
+=> 0x0804bcb8 <read_config+200>:	85 c0	test   %eax,%eax
+   0x0804bcba <read_config+202>:	74 06	je     0x804bcc2 <read_config+210>
+1037			*value++ = '\0';
+=> 0x0804bcbc <read_config+204>:	8d 78 01	lea    0x1(%eax),%edi
+   0x0804bcbf <read_config+207>:	c6 00 00	movb   $0x0,(%eax)
+1039		    if ( strcasecmp( name, "debug" ) == 0 )
+=> 0x0804bcc2 <read_config+210>:	83 ec 08	sub    $0x8,%esp
+   0x0804bcc5 <read_config+213>:	68 ac 5c 05 08	push   $0x8055cac
+   0x0804bcca <read_config+218>:	56	push   %esi
+   0x0804bccb <read_config+219>:	e8 00 de ff ff	call   0x8049ad0 <strcasecmp@plt>
+   0x0804bcd0 <read_config+224>:	83 c4 10	add    $0x10,%esp
+   0x0804bcd3 <read_config+227>:	85 c0	test   %eax,%eax
+   0x0804bcd5 <read_config+229>:	0f 84 c5 02 00 00	je     0x804bfa0 <read_config+944>
+1044		    else if ( strcasecmp( name, "port" ) == 0 )
+=> 0x0804bcdb <read_config+235>:	83 ec 08	sub    $0x8,%esp
+   0x0804bcde <read_config+238>:	68 b2 5c 05 08	push   $0x8055cb2
+   0x0804bce3 <read_config+243>:	56	push   %esi
+   0x0804bce4 <read_config+244>:	e8 e7 dd ff ff	call   0x8049ad0 <strcasecmp@plt>
+   0x0804bce9 <read_config+249>:	83 c4 10	add    $0x10,%esp
+   0x0804bcec <read_config+252>:	85 c0	test   %eax,%eax
+   0x0804bcee <read_config+254>:	0f 84 e4 02 00 00	je     0x804bfd8 <read_config+1000>
+1046			value_required( name, value );
+=> 0x0804bfd8 <read_config+1000>:	89 fa	mov    %edi,%edx
+   0x0804bfda <read_config+1002>:	89 f0	mov    %esi,%eax
+   0x0804bfdc <read_config+1004>:	e8 8f f9 ff ff	call   0x804b970 <value_required>
+1047			port = (unsigned short) atoi( value );
+=> 0x0804bfe1 <read_config+1009>:	83 ec 0c	sub    $0xc,%esp
+   0x0804bfe4 <read_config+1012>:	57	push   %edi
+   0x0804bfe5 <read_config+1013>:	e8 b6 dc ff ff	call   0x8049ca0 <atoi@plt>
+   0x0804bfea <read_config+1018>:	83 c4 10	add    $0x10,%esp
+   0x0804bfed <read_config+1021>:	66 a3 6c 00 06 08	mov    %ax,0x806006c
+   0x0804bff3 <read_config+1027>:	eb be	jmp    0x804bfb3 <read_config+963>
+1185		    cp += strspn( cp, " \t\n\r" );
+=> 0x0804bfb3 <read_config+963>:	83 ec 08	sub    $0x8,%esp
+   0x0804bfb6 <read_config+966>:	68 a7 5c 05 08	push   $0x8055ca7
+   0x0804bfbb <read_config+971>:	53	push   %ebx
+   0x0804bfbc <read_config+972>:	e8 9f dd ff ff	call   0x8049d60 <strspn@plt>
+   0x0804bfc1 <read_config+977>:	8d 34 03	lea    (%ebx,%eax,1),%esi
+   0x0804bfc4 <read_config+980>:	83 c4 10	add    $0x10,%esp
+1026		while ( *cp != '\0' )
+=> 0x0804bfc7 <read_config+983>:	80 3e 00	cmpb   $0x0,(%esi)
+   0x0804bfca <read_config+986>:	0f 85 b0 fc ff ff	jne    0x804bc80 <read_config+144>
+   0x0804bfd0 <read_config+992>:	e9 46 fc ff ff	jmp    0x804bc1b <read_config+43>
+   0x0804bfd5 <read_config+997>:	8d 76 00	lea    0x0(%esi),%esi
+1015	    while ( fgets( line, 1000, fp ) != (char*) 0 )
+=> 0x0804bc1b <read_config+43>:	83 ec 04	sub    $0x4,%esp
+   0x0804bc1e <read_config+46>:	ff 74 24 10	pushl  0x10(%esp)
+   0x0804bc22 <read_config+50>:	68 e8 03 00 00	push   $0x3e8
+   0x0804bc27 <read_config+55>:	8d 44 24 28	lea    0x28(%esp),%eax
+   0x0804bc2b <read_config+59>:	50	push   %eax
+   0x0804bc2c <read_config+60>:	e8 1f db ff ff	call   0x8049750 <fgets@plt>
+   0x0804bc31 <read_config+65>:	83 c4 10	add    $0x10,%esp
+   0x0804bc34 <read_config+68>:	85 c0	test   %eax,%eax
+   0x0804bc36 <read_config+70>:	0f 84 5b 04 00 00	je     0x804c097 <read_config+1191>
+1189	    (void) fclose( fp );
+=> 0x0804c097 <read_config+1191>:	83 ec 0c	sub    $0xc,%esp
+   0x0804c09a <read_config+1194>:	ff 74 24 18	pushl  0x18(%esp)
+   0x0804c09e <read_config+1198>:	e8 cd d6 ff ff	call   0x8049770 <fclose@plt>
+1190	    }
+=> 0x0804c0a3 <read_config+1203>:	81 c4 9c 00 00 00	add    $0x9c,%esp
+   0x0804c0a9 <read_config+1209>:	5b	pop    %ebx
+   0x0804c0aa <read_config+1210>:	5e	pop    %esi
+   0x0804c0ab <read_config+1211>:	5f	pop    %edi
+   0x0804c0ac <read_config+1212>:	5d	pop    %ebp
+   0x0804c0ad <read_config+1213>:	c3	ret    
+0x78787878 in ?? ()
+=> 0x78787878:	Cannot access memory at address 0x78787878
+eax            0x0	0
+ecx            0x8061000	134615040
+edx            0xf7f74450	-134790064
+ebx            0x78787878	2021161080
+esp            0xffffc010	0xffffc010
+ebp            0x78787878	0x78787878
+esi            0x78787878	2021161080
+edi            0x78787878	2021161080
+eip            0x78787878	0x78787878
+eflags         0x286	[ PF SF IF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+Starting program: /w/home.20/class/classbib/Documents/smashing-lab/sthttpd-2.27.0/src/thttpd-no -p 12600 -D -C config.txt
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+
+Program received signal SIGSEGV, Segmentation fault.
+0x0000000000404c8c in read_config (filename=<optimized out>) at thttpd.c:1190
+1190	    }
+   0x0000000000404c80 <read_config+1104>:	48 83 c4 70	add    $0x70,%rsp
+   0x0000000000404c84 <read_config+1108>:	5b	pop    %rbx
+   0x0000000000404c85 <read_config+1109>:	5d	pop    %rbp
+   0x0000000000404c86 <read_config+1110>:	41 5c	pop    %r12
+   0x0000000000404c88 <read_config+1112>:	41 5d	pop    %r13
+   0x0000000000404c8a <read_config+1114>:	41 5e	pop    %r14
+=> 0x0000000000404c8c <read_config+1116>:	c3	retq   
+#0  0x0000000000404c8c in read_config (filename=<optimized out>) at thttpd.c:1190
+#1  0x7878787878787878 in ?? ()
+#2  0x7878787878787878 in ?? ()
+#3  0x7878787878787878 in ?? ()
+#4  0x7878787878787878 in ?? ()
+#5  0x7878787878787878 in ?? ()
+#6  0x7878787878787878 in ?? ()
+#7  0x0000000078787878 in ?? ()
+#8  0x0000000000000000 in ?? ()
+#0  0x0000000000404c8c in read_config (filename=<optimized out>) at thttpd.c:1190
+1190	    }
+   0x0000000000404c80 <read_config+1104>:	48 83 c4 70	add    $0x70,%rsp
+   0x0000000000404c84 <read_config+1108>:	5b	pop    %rbx
+   0x0000000000404c85 <read_config+1109>:	5d	pop    %rbp
+   0x0000000000404c86 <read_config+1110>:	41 5c	pop    %r12
+   0x0000000000404c88 <read_config+1112>:	41 5d	pop    %r13
+   0x0000000000404c8a <read_config+1114>:	41 5e	pop    %r14
+=> 0x0000000000404c8c <read_config+1116>:	c3	retq   
+rax            0x0	0
+rbx            0x7878787878787878	8680820740569200760
+rcx            0x0	0
+rdx            0x7ffff7995fe0	140737347411936
+rsi            0x7ffff79957b8	140737347409848
+rdi            0x20000	131072
+rbp            0x7878787878787878	0x7878787878787878
+rsp            0x7fffffffce58	0x7fffffffce58
+r8             0x1	1
+r9             0x7ffff7fcc740	140737353926464
+r10            0x7fffffffcad0	140737488341712
+r11            0x206	518
+r12            0x7878787878787878	8680820740569200760
+r13            0x7878787878787878	8680820740569200760
+r14            0x7878787878787878	8680820740569200760
+r15            0x5	5
+rip            0x404c8c	0x404c8c <read_config+1116>
+eflags         0x10206	[ PF IF RF ]
+cs             0x33	51
+ss             0x2b	43
+ds             0x0	0
+es             0x0	0
+fs             0x0	0
+gs             0x0	0

@@ -1,0 +1,516 @@
+Starting program: /w/home.20/class/classbib/Documents/smashing-lab/sthttpd-2.27.0/src/thttpd-as -p 12597 -D -C config.txt
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+warning: File "/usr/local/cs/gcc-7.2.0/lib/libstdc++.so.6.0.24-gdb.py" auto-loading has been declined by your `auto-load safe-path' set to "$debugdir:$datadir/auto-load".
+To enable execution of this file add
+	add-auto-load-safe-path /usr/local/cs/gcc-7.2.0/lib/libstdc++.so.6.0.24-gdb.py
+line to your configuration file "/u/eng/class/classbib/.gdbinit".
+To completely disable this security protection add
+	set auto-load safe-path /
+line to your configuration file "/u/eng/class/classbib/.gdbinit".
+For more information about this security protection see the
+"Auto-loading safe path" section in the GDB manual.  E.g., run from the shell:
+	info "(gdb)Auto-loading safe path"
+
+Breakpoint 1, read_config (filename=0xffffd427 "config.txt") at thttpd.c:1000
+1000	    {
+=> 0x0804edd0 <read_config+0>:	55	push   %ebp
+   0x0804edd1 <read_config+1>:	57	push   %edi
+   0x0804edd2 <read_config+2>:	56	push   %esi
+   0x0804edd3 <read_config+3>:	53	push   %ebx
+   0x0804edd4 <read_config+4>:	89 c3	mov    %eax,%ebx
+   0x0804edd6 <read_config+6>:	81 ec dc 00 00 00	sub    $0xdc,%esp
+   0x0804eddc <read_config+12>:	8b 15 30 b5 08 08	mov    0x808b530,%edx
+   0x0804ede2 <read_config+18>:	8d 44 24 10	lea    0x10(%esp),%eax
+   0x0804ede6 <read_config+22>:	85 d2	test   %edx,%edx
+   0x0804ede8 <read_config+24>:	89 44 24 08	mov    %eax,0x8(%esp)
+   0x0804edec <read_config+28>:	0f 85 bc 06 00 00	jne    0x804f4ae <read_config+1758>
+1008	    fp = fopen( filename, "r" );
+=> 0x0804edf6 <read_config+38>:	83 ec 08	sub    $0x8,%esp
+1000	    {
+=> 0x0804edf9 <read_config+41>:	89 f0	mov    %esi,%eax
+   0x0804edfb <read_config+43>:	c7 06 b3 8a b5 41	movl   $0x41b58ab3,(%esi)
+   0x0804ee01 <read_config+49>:	c7 46 04 5e b8 06 08	movl   $0x806b85e,0x4(%esi)
+   0x0804ee08 <read_config+56>:	c1 e8 03	shr    $0x3,%eax
+   0x0804ee0b <read_config+59>:	c7 46 08 d0 ed 04 08	movl   $0x804edd0,0x8(%esi)
+   0x0804ee12 <read_config+66>:	89 44 24 14	mov    %eax,0x14(%esp)
+   0x0804ee16 <read_config+70>:	c7 80 00 00 00 20 f1 f1 f1 f1	movl   $0xf1f1f1f1,0x20000000(%eax)
+   0x0804ee20 <read_config+80>:	c7 80 10 00 00 20 04 f2 f2 f2	movl   $0xf2f2f204,0x20000010(%eax)
+   0x0804ee2a <read_config+90>:	c7 80 14 00 00 20 f3 f3 f3 f3	movl   $0xf3f3f3f3,0x20000014(%eax)
+1008	    fp = fopen( filename, "r" );
+=> 0x0804ee34 <read_config+100>:	68 00 97 06 08	push   $0x8069700
+   0x0804ee39 <read_config+105>:	53	push   %ebx
+   0x0804ee3a <read_config+106>:	e8 51 b2 ff ff	call   0x804a090 <fopen@plt>
+   0x0804ee3f <read_config+111>:	89 44 24 14	mov    %eax,0x14(%esp)
+1009	    if ( fp == (FILE*) 0 )
+=> 0x0804ee43 <read_config+115>:	83 c4 10	add    $0x10,%esp
+   0x0804ee46 <read_config+118>:	85 c0	test   %eax,%eax
+   0x0804ee48 <read_config+120>:	0f 84 70 08 00 00	je     0x804f6be <read_config+2286>
+   0x0804ee4e <read_config+126>:	8d 46 20	lea    0x20(%esi),%eax
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804ee51 <read_config+129>:	be 13 00 80 00	mov    $0x800013,%esi
+   0x0804ee56 <read_config+134>:	89 04 24	mov    %eax,(%esp)
+1015	    while ( fgets( line, 1000, fp ) != (char*) 0 )
+=> 0x0804ee59 <read_config+137>:	83 ec 04	sub    $0x4,%esp
+   0x0804ee5c <read_config+140>:	ff 74 24 08	pushl  0x8(%esp)
+   0x0804ee60 <read_config+144>:	68 e8 03 00 00	push   $0x3e8
+   0x0804ee65 <read_config+149>:	ff 74 24 0c	pushl  0xc(%esp)
+   0x0804ee69 <read_config+153>:	e8 d2 b0 ff ff	call   0x8049f40 <fgets@plt>
+   0x0804ee6e <read_config+158>:	83 c4 10	add    $0x10,%esp
+   0x0804ee71 <read_config+161>:	85 c0	test   %eax,%eax
+   0x0804ee73 <read_config+163>:	0f 84 4c 05 00 00	je     0x804f3c5 <read_config+1525>
+1018		if ( ( cp = strchr( line, '#' ) ) != (char*) 0 )
+=> 0x0804ee79 <read_config+169>:	83 ec 08	sub    $0x8,%esp
+   0x0804ee7c <read_config+172>:	6a 23	push   $0x23
+   0x0804ee7e <read_config+174>:	ff 74 24 0c	pushl  0xc(%esp)
+   0x0804ee82 <read_config+178>:	e8 29 b6 ff ff	call   0x804a4b0 <strchr@plt>
+   0x0804ee87 <read_config+183>:	83 c4 10	add    $0x10,%esp
+   0x0804ee8a <read_config+186>:	85 c0	test   %eax,%eax
+   0x0804ee8c <read_config+188>:	74 20	je     0x804eeae <read_config+222>
+
+Program received signal SIGSEGV, Segmentation fault.
+uw_frame_state_for (context=context@entry=0xffffa7e0, fs=fs@entry=0xffffa860) at ../../../../gcc-7.2.0/libgcc/unwind-dw2.c:1257
+1257	../../../../gcc-7.2.0/libgcc/unwind-dw2.c: No such file or directory.
+__asan::AsanOnDeadlySignal (signo=11, siginfo=0xf7a15b0c, context=0xf7a15b8c)
+    at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_posix.cc:47
+47	../../../../../gcc-7.2.0/libsanitizer/asan/asan_posix.cc: No such file or directory.
+=> 0xf7afdfc0 <__asan::AsanOnDeadlySignal(int, void*, void*)+0>:	55	push   %ebp
+   0xf7afdfc1 <__asan::AsanOnDeadlySignal(int, void*, void*)+1>:	57	push   %edi
+   0xf7afdfc2 <__asan::AsanOnDeadlySignal(int, void*, void*)+2>:	56	push   %esi
+   0xf7afdfc3 <__asan::AsanOnDeadlySignal(int, void*, void*)+3>:	53	push   %ebx
+   0xf7afdfc4 <__asan::AsanOnDeadlySignal(int, void*, void*)+4>:	e8 97 34 f3 ff	call   0xf7a31460 <__x86.get_pc_thunk.bx>
+   0xf7afdfc9 <__asan::AsanOnDeadlySignal(int, void*, void*)+9>:	81 c3 37 00 08 00	add    $0x80037,%ebx
+   0xf7afdfcf <__asan::AsanOnDeadlySignal(int, void*, void*)+15>:	83 ec 3c	sub    $0x3c,%esp
+Starting program: /w/home.20/class/classbib/Documents/smashing-lab/sthttpd-2.27.0/src/thttpd-as -p 12597 -D -C config.txt
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+warning: File "/usr/local/cs/gcc-7.2.0/lib/libstdc++.so.6.0.24-gdb.py" auto-loading has been declined by your `auto-load safe-path' set to "$debugdir:$datadir/auto-load".
+To enable execution of this file add
+	add-auto-load-safe-path /usr/local/cs/gcc-7.2.0/lib/libstdc++.so.6.0.24-gdb.py
+line to your configuration file "/u/eng/class/classbib/.gdbinit".
+To completely disable this security protection add
+	set auto-load safe-path /
+line to your configuration file "/u/eng/class/classbib/.gdbinit".
+For more information about this security protection see the
+"Auto-loading safe path" section in the GDB manual.  E.g., run from the shell:
+	info "(gdb)Auto-loading safe path"
+
+Breakpoint 1, read_config (filename=0xffffd427 "config.txt") at thttpd.c:1000
+1000	    {
+=> 0x0804edd0 <read_config+0>:	55	push   %ebp
+   0x0804edd1 <read_config+1>:	57	push   %edi
+   0x0804edd2 <read_config+2>:	56	push   %esi
+   0x0804edd3 <read_config+3>:	53	push   %ebx
+   0x0804edd4 <read_config+4>:	89 c3	mov    %eax,%ebx
+   0x0804edd6 <read_config+6>:	81 ec dc 00 00 00	sub    $0xdc,%esp
+   0x0804eddc <read_config+12>:	8b 15 30 b5 08 08	mov    0x808b530,%edx
+   0x0804ede2 <read_config+18>:	8d 44 24 10	lea    0x10(%esp),%eax
+   0x0804ede6 <read_config+22>:	85 d2	test   %edx,%edx
+   0x0804ede8 <read_config+24>:	89 44 24 08	mov    %eax,0x8(%esp)
+   0x0804edec <read_config+28>:	0f 85 bc 06 00 00	jne    0x804f4ae <read_config+1758>
+1008	    fp = fopen( filename, "r" );
+=> 0x0804edf6 <read_config+38>:	83 ec 08	sub    $0x8,%esp
+1000	    {
+=> 0x0804edf9 <read_config+41>:	89 f0	mov    %esi,%eax
+   0x0804edfb <read_config+43>:	c7 06 b3 8a b5 41	movl   $0x41b58ab3,(%esi)
+   0x0804ee01 <read_config+49>:	c7 46 04 5e b8 06 08	movl   $0x806b85e,0x4(%esi)
+   0x0804ee08 <read_config+56>:	c1 e8 03	shr    $0x3,%eax
+   0x0804ee0b <read_config+59>:	c7 46 08 d0 ed 04 08	movl   $0x804edd0,0x8(%esi)
+   0x0804ee12 <read_config+66>:	89 44 24 14	mov    %eax,0x14(%esp)
+   0x0804ee16 <read_config+70>:	c7 80 00 00 00 20 f1 f1 f1 f1	movl   $0xf1f1f1f1,0x20000000(%eax)
+   0x0804ee20 <read_config+80>:	c7 80 10 00 00 20 04 f2 f2 f2	movl   $0xf2f2f204,0x20000010(%eax)
+   0x0804ee2a <read_config+90>:	c7 80 14 00 00 20 f3 f3 f3 f3	movl   $0xf3f3f3f3,0x20000014(%eax)
+1008	    fp = fopen( filename, "r" );
+=> 0x0804ee34 <read_config+100>:	68 00 97 06 08	push   $0x8069700
+   0x0804ee39 <read_config+105>:	53	push   %ebx
+   0x0804ee3a <read_config+106>:	e8 51 b2 ff ff	call   0x804a090 <fopen@plt>
+   0x0804ee3f <read_config+111>:	89 44 24 14	mov    %eax,0x14(%esp)
+1009	    if ( fp == (FILE*) 0 )
+=> 0x0804ee43 <read_config+115>:	83 c4 10	add    $0x10,%esp
+   0x0804ee46 <read_config+118>:	85 c0	test   %eax,%eax
+   0x0804ee48 <read_config+120>:	0f 84 70 08 00 00	je     0x804f6be <read_config+2286>
+   0x0804ee4e <read_config+126>:	8d 46 20	lea    0x20(%esi),%eax
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804ee51 <read_config+129>:	be 13 00 80 00	mov    $0x800013,%esi
+   0x0804ee56 <read_config+134>:	89 04 24	mov    %eax,(%esp)
+1015	    while ( fgets( line, 1000, fp ) != (char*) 0 )
+=> 0x0804ee59 <read_config+137>:	83 ec 04	sub    $0x4,%esp
+   0x0804ee5c <read_config+140>:	ff 74 24 08	pushl  0x8(%esp)
+   0x0804ee60 <read_config+144>:	68 e8 03 00 00	push   $0x3e8
+   0x0804ee65 <read_config+149>:	ff 74 24 0c	pushl  0xc(%esp)
+   0x0804ee69 <read_config+153>:	e8 d2 b0 ff ff	call   0x8049f40 <fgets@plt>
+   0x0804ee6e <read_config+158>:	83 c4 10	add    $0x10,%esp
+   0x0804ee71 <read_config+161>:	85 c0	test   %eax,%eax
+   0x0804ee73 <read_config+163>:	0f 84 4c 05 00 00	je     0x804f3c5 <read_config+1525>
+1018		if ( ( cp = strchr( line, '#' ) ) != (char*) 0 )
+=> 0x0804ee79 <read_config+169>:	83 ec 08	sub    $0x8,%esp
+   0x0804ee7c <read_config+172>:	6a 23	push   $0x23
+   0x0804ee7e <read_config+174>:	ff 74 24 0c	pushl  0xc(%esp)
+   0x0804ee82 <read_config+178>:	e8 29 b6 ff ff	call   0x804a4b0 <strchr@plt>
+   0x0804ee87 <read_config+183>:	83 c4 10	add    $0x10,%esp
+   0x0804ee8a <read_config+186>:	85 c0	test   %eax,%eax
+   0x0804ee8c <read_config+188>:	74 20	je     0x804eeae <read_config+222>
+0x0804ee7c	1018		if ( ( cp = strchr( line, '#' ) ) != (char*) 0 )
+   0x0804ee79 <read_config+169>:	83 ec 08	sub    $0x8,%esp
+=> 0x0804ee7c <read_config+172>:	6a 23	push   $0x23
+   0x0804ee7e <read_config+174>:	ff 74 24 0c	pushl  0xc(%esp)
+   0x0804ee82 <read_config+178>:	e8 29 b6 ff ff	call   0x804a4b0 <strchr@plt>
+   0x0804ee87 <read_config+183>:	83 c4 10	add    $0x10,%esp
+   0x0804ee8a <read_config+186>:	85 c0	test   %eax,%eax
+   0x0804ee8c <read_config+188>:	74 20	je     0x804eeae <read_config+222>
+0x0804ee7e	1018		if ( ( cp = strchr( line, '#' ) ) != (char*) 0 )
+   0x0804ee79 <read_config+169>:	83 ec 08	sub    $0x8,%esp
+   0x0804ee7c <read_config+172>:	6a 23	push   $0x23
+=> 0x0804ee7e <read_config+174>:	ff 74 24 0c	pushl  0xc(%esp)
+   0x0804ee82 <read_config+178>:	e8 29 b6 ff ff	call   0x804a4b0 <strchr@plt>
+   0x0804ee87 <read_config+183>:	83 c4 10	add    $0x10,%esp
+   0x0804ee8a <read_config+186>:	85 c0	test   %eax,%eax
+   0x0804ee8c <read_config+188>:	74 20	je     0x804eeae <read_config+222>
+0x0804ee82	1018		if ( ( cp = strchr( line, '#' ) ) != (char*) 0 )
+   0x0804ee79 <read_config+169>:	83 ec 08	sub    $0x8,%esp
+   0x0804ee7c <read_config+172>:	6a 23	push   $0x23
+   0x0804ee7e <read_config+174>:	ff 74 24 0c	pushl  0xc(%esp)
+=> 0x0804ee82 <read_config+178>:	e8 29 b6 ff ff	call   0x804a4b0 <strchr@plt>
+   0x0804ee87 <read_config+183>:	83 c4 10	add    $0x10,%esp
+   0x0804ee8a <read_config+186>:	85 c0	test   %eax,%eax
+   0x0804ee8c <read_config+188>:	74 20	je     0x804eeae <read_config+222>
+eax            0xffffbdd0	-16944
+ecx            0xf79f80cd	-140541747
+edx            0xf5c03a08	-171951608
+ebx            0xffffd427	-11225
+esp            0xffffbd90	0xffffbd90
+ebp            0xffffd244	0xffffd244
+esi            0x800013	8388627
+edi            0x6	6
+eip            0x804ee82	0x804ee82 <read_config+178>
+eflags         0x292	[ AF SF IF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+
+Program received signal SIGSEGV, Segmentation fault.
+x86_fallback_frame_state (context=<optimized out>, context=<optimized out>, fs=0xffffa860) at ./md-unwind-support.h:127
+127	./md-unwind-support.h: No such file or directory.
+=> 0xf760f1c6 <uw_frame_state_for+502>:	66 81 38 58 b8	cmpw   $0xb858,(%eax)
+   0xf760f1cb <uw_frame_state_for+507>:	0f 84 97 02 00 00	je     0xf760f468 <uw_frame_state_for+1176>
+eax            0x78787878	2021161080
+ecx            0xffffbe90	-16752
+edx            0x0	0
+ebx            0xf7618000	-144605184
+esp            0xffffa790	0xffffa790
+ebp            0xffffa938	0xffffa938
+esi            0xffffa860	-22432
+edi            0xffffa860	-22432
+eip            0xf760f1c6	0xf760f1c6 <uw_frame_state_for+502>
+eflags         0x10246	[ PF ZF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+Starting program: /w/home.20/class/classbib/Documents/smashing-lab/sthttpd-2.27.0/src/thttpd-as -p 12597 -D -C config.txt
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+warning: File "/usr/local/cs/gcc-7.2.0/lib/libstdc++.so.6.0.24-gdb.py" auto-loading has been declined by your `auto-load safe-path' set to "$debugdir:$datadir/auto-load".
+
+Breakpoint 1, read_config (filename=0xffffd427 "config.txt") at thttpd.c:1000
+1000	    {
+=> 0x0804edd0 <read_config+0>:	55	push   %ebp
+   0x0804edd1 <read_config+1>:	57	push   %edi
+   0x0804edd2 <read_config+2>:	56	push   %esi
+   0x0804edd3 <read_config+3>:	53	push   %ebx
+   0x0804edd4 <read_config+4>:	89 c3	mov    %eax,%ebx
+   0x0804edd6 <read_config+6>:	81 ec dc 00 00 00	sub    $0xdc,%esp
+   0x0804eddc <read_config+12>:	8b 15 30 b5 08 08	mov    0x808b530,%edx
+   0x0804ede2 <read_config+18>:	8d 44 24 10	lea    0x10(%esp),%eax
+   0x0804ede6 <read_config+22>:	85 d2	test   %edx,%edx
+   0x0804ede8 <read_config+24>:	89 44 24 08	mov    %eax,0x8(%esp)
+   0x0804edec <read_config+28>:	0f 85 bc 06 00 00	jne    0x804f4ae <read_config+1758>
+1008	    fp = fopen( filename, "r" );
+=> 0x0804edf6 <read_config+38>:	83 ec 08	sub    $0x8,%esp
+1000	    {
+=> 0x0804edf9 <read_config+41>:	89 f0	mov    %esi,%eax
+   0x0804edfb <read_config+43>:	c7 06 b3 8a b5 41	movl   $0x41b58ab3,(%esi)
+   0x0804ee01 <read_config+49>:	c7 46 04 5e b8 06 08	movl   $0x806b85e,0x4(%esi)
+   0x0804ee08 <read_config+56>:	c1 e8 03	shr    $0x3,%eax
+   0x0804ee0b <read_config+59>:	c7 46 08 d0 ed 04 08	movl   $0x804edd0,0x8(%esi)
+   0x0804ee12 <read_config+66>:	89 44 24 14	mov    %eax,0x14(%esp)
+   0x0804ee16 <read_config+70>:	c7 80 00 00 00 20 f1 f1 f1 f1	movl   $0xf1f1f1f1,0x20000000(%eax)
+   0x0804ee20 <read_config+80>:	c7 80 10 00 00 20 04 f2 f2 f2	movl   $0xf2f2f204,0x20000010(%eax)
+   0x0804ee2a <read_config+90>:	c7 80 14 00 00 20 f3 f3 f3 f3	movl   $0xf3f3f3f3,0x20000014(%eax)
+1008	    fp = fopen( filename, "r" );
+=> 0x0804ee34 <read_config+100>:	68 00 97 06 08	push   $0x8069700
+   0x0804ee39 <read_config+105>:	53	push   %ebx
+   0x0804ee3a <read_config+106>:	e8 51 b2 ff ff	call   0x804a090 <fopen@plt>
+   0x0804ee3f <read_config+111>:	89 44 24 14	mov    %eax,0x14(%esp)
+1009	    if ( fp == (FILE*) 0 )
+=> 0x0804ee43 <read_config+115>:	83 c4 10	add    $0x10,%esp
+   0x0804ee46 <read_config+118>:	85 c0	test   %eax,%eax
+   0x0804ee48 <read_config+120>:	0f 84 70 08 00 00	je     0x804f6be <read_config+2286>
+   0x0804ee4e <read_config+126>:	8d 46 20	lea    0x20(%esi),%eax
+1031		    while ( *cp2 == ' ' || *cp2 == '\t' || *cp2 == '\n' || *cp2 == '\r' )
+=> 0x0804ee51 <read_config+129>:	be 13 00 80 00	mov    $0x800013,%esi
+   0x0804ee56 <read_config+134>:	89 04 24	mov    %eax,(%esp)
+1015	    while ( fgets( line, 1000, fp ) != (char*) 0 )
+=> 0x0804ee59 <read_config+137>:	83 ec 04	sub    $0x4,%esp
+   0x0804ee5c <read_config+140>:	ff 74 24 08	pushl  0x8(%esp)
+   0x0804ee60 <read_config+144>:	68 e8 03 00 00	push   $0x3e8
+   0x0804ee65 <read_config+149>:	ff 74 24 0c	pushl  0xc(%esp)
+   0x0804ee69 <read_config+153>:	e8 d2 b0 ff ff	call   0x8049f40 <fgets@plt>
+   0x0804ee6e <read_config+158>:	83 c4 10	add    $0x10,%esp
+   0x0804ee71 <read_config+161>:	85 c0	test   %eax,%eax
+   0x0804ee73 <read_config+163>:	0f 84 4c 05 00 00	je     0x804f3c5 <read_config+1525>
+1018		if ( ( cp = strchr( line, '#' ) ) != (char*) 0 )
+=> 0x0804ee79 <read_config+169>:	83 ec 08	sub    $0x8,%esp
+   0x0804ee7c <read_config+172>:	6a 23	push   $0x23
+   0x0804ee7e <read_config+174>:	ff 74 24 0c	pushl  0xc(%esp)
+   0x0804ee82 <read_config+178>:	e8 29 b6 ff ff	call   0x804a4b0 <strchr@plt>
+   0x0804ee87 <read_config+183>:	83 c4 10	add    $0x10,%esp
+   0x0804ee8a <read_config+186>:	85 c0	test   %eax,%eax
+   0x0804ee8c <read_config+188>:	74 20	je     0x804eeae <read_config+222>
+
+Program received signal SIGSEGV, Segmentation fault.
+uw_frame_state_for (context=context@entry=0xffffa7e0, fs=fs@entry=0xffffa860) at ../../../../gcc-7.2.0/libgcc/unwind-dw2.c:1257
+1257	../../../../gcc-7.2.0/libgcc/unwind-dw2.c: No such file or directory.
+#0  uw_frame_state_for (context=context@entry=0xffffa7e0, fs=fs@entry=0xffffa860) at ../../../../gcc-7.2.0/libgcc/unwind-dw2.c:1257
+#1  0xf7610818 in _Unwind_Backtrace (trace=0xf7b24680 <__sanitizer::Unwind_Trace(_Unwind_Context*, void*)>, trace_argument=0xffffa958)
+    at ../../../../gcc-7.2.0/libgcc/unwind.inc:290
+#2  0xf7b247db in __sanitizer::BufferedStackTrace::SlowUnwindStack (this=0xffffaa80, pc=4154907894, max_depth=256)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_unwind_linux_libcdep.cc:123
+#3  0xf7b1eac6 in __sanitizer::BufferedStackTrace::Unwind (this=0xffffaa80, max_depth=256, pc=4154907894, bp=4294950280, context=0x0, 
+    stack_top=4294959104, stack_bottom=4286570496, request_fast_unwind=false)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_stacktrace_libcdep.cc:74
+#4  0xf7a403cc in __asan::GetStackTraceWithPcBpAndContext (fast=false, context=0x0, bp=4294950280, pc=4154907894, max_depth=256, 
+    stack=0xffffaa80) at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_stack.h:50
+#5  __asan::ErrorGeneric::Print (this=0xf7bac264 <__asan::ScopedInErrorReport::current_error_+4>)
+    at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_errors.cc:482
+#6  0xf7b02868 in __asan::ErrorDescription::Print (this=0xf7bac260 <__asan::ScopedInErrorReport::current_error_>)
+    at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_errors.h:360
+#7  __asan::ScopedInErrorReport::~ScopedInErrorReport (this=0xffffaedf, __in_chrg=<optimized out>)
+    at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_report.cc:167
+#8  __asan::ReportGenericError (pc=4154907894, bp=4294950280, sp=4294949216, addr=4294950452, is_write=false, access_size=206, exp=0, 
+    fatal=false) at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_report.cc:397
+#9  0xf7a6dd11 in __interceptor_strchr (s=<optimized out>, c=<optimized out>)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:466
+#10 0x0804ee87 in read_config (filename=<optimized out>) at thttpd.c:1018
+#11 0x78787878 in ?? ()
+#12 0x78787878 in ?? ()
+#13 0x78787878 in ?? ()
+#14 0x78787878 in ?? ()
+#15 0x0000000a in ?? ()
+#16 0xffffd198 in ?? ()
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
+#0  uw_frame_state_for (context=context@entry=0xffffa7e0, fs=fs@entry=0xffffa860) at ../../../../gcc-7.2.0/libgcc/unwind-dw2.c:1257
+1257	in ../../../../gcc-7.2.0/libgcc/unwind-dw2.c
+Stack level 0, frame at 0xffffa7e0:
+ eip = 0xf760f1c6 in uw_frame_state_for (../../../../gcc-7.2.0/libgcc/unwind-dw2.c:1257); saved eip = 0xf7610818
+ called by frame at 0xffffa940
+ source language c.
+ Arglist at 0xffffa794, args: context=context@entry=0xffffa7e0, fs=fs@entry=0xffffa860
+ Locals at 0xffffa794, Previous frame's sp is 0xffffa7e0
+ Saved registers:
+  ebx at 0xffffa7cc, ebp at 0xffffa7d8, esi at 0xffffa7d0, edi at 0xffffa7d4, eip at 0xffffa7dc
+eax            0x78787878	2021161080
+ecx            0xffffbe90	-16752
+edx            0x0	0
+ebx            0xf7618000	-144605184
+esp            0xffffa790	0xffffa790
+ebp            0xffffa938	0xffffa938
+esi            0xffffa860	-22432
+edi            0xffffa860	-22432
+eip            0xf760f1c6	0xf760f1c6 <uw_frame_state_for+502>
+eflags         0x10246	[ PF ZF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+#0  ?? () at ../../../../gcc-7.2.0/libgcc/unwind-dw2.c:1257
+1257	in ../../../../gcc-7.2.0/libgcc/unwind-dw2.c
+eax            0x78787878	2021161080
+ecx            0xffffbe90	-16752
+edx            0x0	0
+ebx            0xf7618000	-144605184
+esp            0xffffa790	0xffffa790
+ebp            0xffffa938	0xffffa938
+esi            0xffffa860	-22432
+edi            0xffffa860	-22432
+eip            0xf760f1c6	0xf760f1c6 <uw_frame_state_for+502>
+eflags         0x10246	[ PF ZF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+Stack level 0, frame at 0x11:
+ eip = 0x0 (../../../../gcc-7.2.0/libgcc/unwind-dw2.c:1257); saved eip = 0x40000000
+ called by frame at 0xffffa798
+ source language c.
+ Arglist at 0xffffa78c, args: 
+ Locals at 0xffffa78c, Previous frame's sp is 0xffffa794
+ Saved registers:
+  eip at 0xffffa790
+#0  ?? () at ../../../../gcc-7.2.0/libgcc/unwind-dw2.c:1257
+1257	in ../../../../gcc-7.2.0/libgcc/unwind-dw2.c
+#10 0x0804ee87 in read_config (filename=<optimized out>) at thttpd.c:1018
+1018		if ( ( cp = strchr( line, '#' ) ) != (char*) 0 )
+   0x0804ee79 <read_config+169>:	83 ec 08	sub    $0x8,%esp
+   0x0804ee7c <read_config+172>:	6a 23	push   $0x23
+   0x0804ee7e <read_config+174>:	ff 74 24 0c	pushl  0xc(%esp)
+   0x0804ee82 <read_config+178>:	e8 29 b6 ff ff	call   0x804a4b0 <strchr@plt>
+=> 0x0804ee87 <read_config+183>:	83 c4 10	add    $0x10,%esp
+   0x0804ee8a <read_config+186>:	85 c0	test   %eax,%eax
+   0x0804ee8c <read_config+188>:	74 20	je     0x804eeae <read_config+222>
+eax            0x78787878	2021161080
+ecx            0xffffbe90	-16752
+edx            0x0	0
+ebx            0xffffd427	-11225
+esp            0xffffbd90	0xffffbd90
+ebp            0xffffd244	0xffffd244
+esi            0x800013	8388627
+edi            0x6	6
+eip            0x804ee87	0x804ee87 <read_config+183>
+eflags         0x10246	[ PF ZF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+#9  0xf7a6dd11 in __interceptor_strchr (s=<optimized out>, c=<optimized out>)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:466
+466	../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc: No such file or directory.
+   0xf7a6dcd0 <__interceptor_strchr(char const*, int)+272>:	e8 1b 87 09 00	call   0xf7b063f0 <__asan::HaveStackTraceBasedSuppressions()>
+   0xf7a6dcd5 <__interceptor_strchr(char const*, int)+277>:	84 c0	test   %al,%al
+   0xf7a6dcd7 <__interceptor_strchr(char const*, int)+279>:	8b 95 d0 fb ff ff	mov    -0x430(%ebp),%edx
+   0xf7a6dcdd <__interceptor_strchr(char const*, int)+285>:	75 37	jne    0xf7a6dd16 <__interceptor_strchr(char const*, int)+342>
+   0xf7a6dcdf <__interceptor_strchr(char const*, int)+287>:	8d 85 d8 fb ff ff	lea    -0x428(%ebp),%eax
+   0xf7a6dce5 <__interceptor_strchr(char const*, int)+293>:	89 85 c8 fb ff ff	mov    %eax,-0x438(%ebp)
+   0xf7a6dceb <__interceptor_strchr(char const*, int)+299>:	89 95 d4 fb ff ff	mov    %edx,-0x42c(%ebp)
+   0xf7a6dcf1 <__interceptor_strchr(char const*, int)+305>:	e8 da 07 0b 00	call   0xf7b1e4d0 <__sanitizer::StackTrace::GetCurrentPc()>
+   0xf7a6dcf6 <__interceptor_strchr(char const*, int)+310>:	8b 95 d4 fb ff ff	mov    -0x42c(%ebp),%edx
+   0xf7a6dcfc <__interceptor_strchr(char const*, int)+316>:	6a 00	push   $0x0
+   0xf7a6dcfe <__interceptor_strchr(char const*, int)+318>:	6a 00	push   $0x0
+   0xf7a6dd00 <__interceptor_strchr(char const*, int)+320>:	52	push   %edx
+   0xf7a6dd01 <__interceptor_strchr(char const*, int)+321>:	6a 00	push   $0x0
+   0xf7a6dd03 <__interceptor_strchr(char const*, int)+323>:	56	push   %esi
+   0xf7a6dd04 <__interceptor_strchr(char const*, int)+324>:	ff b5 c8 fb ff ff	pushl  -0x438(%ebp)
+   0xf7a6dd0a <__interceptor_strchr(char const*, int)+330>:	55	push   %ebp
+   0xf7a6dd0b <__interceptor_strchr(char const*, int)+331>:	50	push   %eax
+   0xf7a6dd0c <__interceptor_strchr(char const*, int)+332>:	e8 9f 48 09 00	call   0xf7b025b0 <__asan::ReportGenericError(unsigned long, unsigned long, unsigned long, unsigned long, bool, unsigned long, unsigned int, bool)>
+=> 0xf7a6dd11 <__interceptor_strchr(char const*, int)+337>:	83 c4 20	add    $0x20,%esp
+   0xf7a6dd14 <__interceptor_strchr(char const*, int)+340>:	eb a9	jmp    0xf7a6dcbf <__interceptor_strchr(char const*, int)+255>
+eax            0x78787878	2021161080
+ecx            0xffffbe90	-16752
+edx            0x0	0
+ebx            0xf7b7e000	-138944512
+esp            0xffffb920	0xffffb920
+ebp            0xffffbd88	0xffffbd88
+esi            0xffffbe34	-16844
+edi            0x0	0
+eip            0xf7a6dd11	0xf7a6dd11 <__interceptor_strchr(char const*, int)+337>
+eflags         0x10246	[ PF ZF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+#0  uw_frame_state_for (context=context@entry=0xffffa7e0, fs=fs@entry=0xffffa860) at ../../../../gcc-7.2.0/libgcc/unwind-dw2.c:1257
+#1  0xf7610818 in _Unwind_Backtrace (trace=0xf7b24680 <__sanitizer::Unwind_Trace(_Unwind_Context*, void*)>, trace_argument=0xffffa958)
+    at ../../../../gcc-7.2.0/libgcc/unwind.inc:290
+#2  0xf7b247db in __sanitizer::BufferedStackTrace::SlowUnwindStack (this=0xffffaa80, pc=4154907894, max_depth=256)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_unwind_linux_libcdep.cc:123
+#3  0xf7b1eac6 in __sanitizer::BufferedStackTrace::Unwind (this=0xffffaa80, max_depth=256, pc=4154907894, bp=4294950280, context=0x0, 
+    stack_top=4294959104, stack_bottom=4286570496, request_fast_unwind=false)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_stacktrace_libcdep.cc:74
+#4  0xf7a403cc in __asan::GetStackTraceWithPcBpAndContext (fast=false, context=0x0, bp=4294950280, pc=4154907894, max_depth=256, 
+    stack=0xffffaa80) at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_stack.h:50
+#5  __asan::ErrorGeneric::Print (this=0xf7bac264 <__asan::ScopedInErrorReport::current_error_+4>)
+    at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_errors.cc:482
+#6  0xf7b02868 in __asan::ErrorDescription::Print (this=0xf7bac260 <__asan::ScopedInErrorReport::current_error_>)
+    at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_errors.h:360
+#7  __asan::ScopedInErrorReport::~ScopedInErrorReport (this=0xffffaedf, __in_chrg=<optimized out>)
+    at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_report.cc:167
+#8  __asan::ReportGenericError (pc=4154907894, bp=4294950280, sp=4294949216, addr=4294950452, is_write=false, access_size=206, exp=0, 
+    fatal=false) at ../../../../../gcc-7.2.0/libsanitizer/asan/asan_report.cc:397
+#9  0xf7a6dd11 in __interceptor_strchr (s=<optimized out>, c=<optimized out>)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:466
+#10 0x0804ee87 in read_config (filename=<optimized out>) at thttpd.c:1018
+#11 0x78787878 in ?? ()
+#12 0x78787878 in ?? ()
+#13 0x78787878 in ?? ()
+#14 0x78787878 in ?? ()
+#15 0x0000000a in ?? ()
+#16 0xffffd198 in ?? ()
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
+#10 0x0804ee87 in read_config (filename=<optimized out>) at thttpd.c:1018
+1018		if ( ( cp = strchr( line, '#' ) ) != (char*) 0 )
+   0x0804ee79 <read_config+169>:	83 ec 08	sub    $0x8,%esp
+   0x0804ee7c <read_config+172>:	6a 23	push   $0x23
+   0x0804ee7e <read_config+174>:	ff 74 24 0c	pushl  0xc(%esp)
+   0x0804ee82 <read_config+178>:	e8 29 b6 ff ff	call   0x804a4b0 <strchr@plt>
+=> 0x0804ee87 <read_config+183>:	83 c4 10	add    $0x10,%esp
+   0x0804ee8a <read_config+186>:	85 c0	test   %eax,%eax
+   0x0804ee8c <read_config+188>:	74 20	je     0x804eeae <read_config+222>
+eax            0x78787878	2021161080
+ecx            0xffffbe90	-16752
+edx            0x0	0
+ebx            0xffffd427	-11225
+esp            0xffffbd90	0xffffbd90
+ebp            0xffffd244	0xffffd244
+esi            0x800013	8388627
+edi            0x6	6
+eip            0x804ee87	0x804ee87 <read_config+183>
+eflags         0x10246	[ PF ZF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+#9  0xf7a6dd11 in __interceptor_strchr (s=<optimized out>, c=<optimized out>)
+    at ../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:466
+466	../../../../../gcc-7.2.0/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc: No such file or directory.
+   0xf7a6dcd0 <__interceptor_strchr(char const*, int)+272>:	e8 1b 87 09 00	call   0xf7b063f0 <__asan::HaveStackTraceBasedSuppressions()>
+   0xf7a6dcd5 <__interceptor_strchr(char const*, int)+277>:	84 c0	test   %al,%al
+   0xf7a6dcd7 <__interceptor_strchr(char const*, int)+279>:	8b 95 d0 fb ff ff	mov    -0x430(%ebp),%edx
+   0xf7a6dcdd <__interceptor_strchr(char const*, int)+285>:	75 37	jne    0xf7a6dd16 <__interceptor_strchr(char const*, int)+342>
+   0xf7a6dcdf <__interceptor_strchr(char const*, int)+287>:	8d 85 d8 fb ff ff	lea    -0x428(%ebp),%eax
+   0xf7a6dce5 <__interceptor_strchr(char const*, int)+293>:	89 85 c8 fb ff ff	mov    %eax,-0x438(%ebp)
+   0xf7a6dceb <__interceptor_strchr(char const*, int)+299>:	89 95 d4 fb ff ff	mov    %edx,-0x42c(%ebp)
+   0xf7a6dcf1 <__interceptor_strchr(char const*, int)+305>:	e8 da 07 0b 00	call   0xf7b1e4d0 <__sanitizer::StackTrace::GetCurrentPc()>
+   0xf7a6dcf6 <__interceptor_strchr(char const*, int)+310>:	8b 95 d4 fb ff ff	mov    -0x42c(%ebp),%edx
+   0xf7a6dcfc <__interceptor_strchr(char const*, int)+316>:	6a 00	push   $0x0
+   0xf7a6dcfe <__interceptor_strchr(char const*, int)+318>:	6a 00	push   $0x0
+   0xf7a6dd00 <__interceptor_strchr(char const*, int)+320>:	52	push   %edx
+   0xf7a6dd01 <__interceptor_strchr(char const*, int)+321>:	6a 00	push   $0x0
+   0xf7a6dd03 <__interceptor_strchr(char const*, int)+323>:	56	push   %esi
+   0xf7a6dd04 <__interceptor_strchr(char const*, int)+324>:	ff b5 c8 fb ff ff	pushl  -0x438(%ebp)
+   0xf7a6dd0a <__interceptor_strchr(char const*, int)+330>:	55	push   %ebp
+   0xf7a6dd0b <__interceptor_strchr(char const*, int)+331>:	50	push   %eax
+   0xf7a6dd0c <__interceptor_strchr(char const*, int)+332>:	e8 9f 48 09 00	call   0xf7b025b0 <__asan::ReportGenericError(unsigned long, unsigned long, unsigned long, unsigned long, bool, unsigned long, unsigned int, bool)>
+=> 0xf7a6dd11 <__interceptor_strchr(char const*, int)+337>:	83 c4 20	add    $0x20,%esp
+   0xf7a6dd14 <__interceptor_strchr(char const*, int)+340>:	eb a9	jmp    0xf7a6dcbf <__interceptor_strchr(char const*, int)+255>
+eax            0x78787878	2021161080
+ecx            0xffffbe90	-16752
+edx            0x0	0
+ebx            0xf7b7e000	-138944512
+esp            0xffffb920	0xffffb920
+ebp            0xffffbd88	0xffffbd88
+esi            0xffffbe34	-16844
+edi            0x0	0
+eip            0xf7a6dd11	0xf7a6dd11 <__interceptor_strchr(char const*, int)+337>
+eflags         0x10246	[ PF ZF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
