@@ -1,0 +1,189 @@
+1. Descriptions for getters and setters omitted 
+
+I chose to do my heirarchy in the following way: 
+
+Actor
+- IceMan 
+- Protestor 
+   - Regular
+   - Hardcore
+- Ice
+- Boulder
+- Item
+   - Gold Nugget
+   - Squirt
+   - Water
+   - Oil 
+   - Sonar
+
+Functions
+ 
+Actor: 
+- Actor(int ID, int startX, int startY, Direction dir, double size, int depth)
+   - Takes args and then initializes a graphobject with these args. 
+   - Sets all derived objects to visible and active by default
+
+- virtual ~Actor();
+   - Decided to make this one virtual so that other class specific destructors can be used for derived classes
+
+- virtual void doSomething(); 
+   - This MUST be virtual because absolutely every object has some different doSomething() method that will need to be called
+
+- double distanceTo(Actor* actor); 
+   - not virtual, returns the distance from this to any other actor  
+
+- Several getters and setters for things like health. These values are simply uninitialized by objects which do not have health, but then get initialized to specific values for those actors that do have a particular health pool such as protestors and iceman. 
+
+Iceman: 
+- Iceman(StudentWorld* world);
+   - Initializes the iceman and keeps some pointer reference to studentworld that will be used later for interacting with the gameworld. 
+
+- virtual void doSomething(); 
+   - Iceman has his own unique doSomething() method which involves him moving and for that reason this function is virtual and must not call the parent class’s doSomething.
+
+- virtual void destroyIce(); 
+   - Method unique to the actor which destroys ice immediately adjacent to him as the moves around the game wold 
+
+- virtual void move(); 
+   - Method which simplifies the movement of the Iceman. Can move based on direction. It’s in its own class because iceman’s move method requires key inputs. 
+
+Ice: 
+- Ice();
+   - Default constructor setting up ice field 
+
+- Ice(int x, int y); 
+   - constructs ice at a given position
+
+- virtual ~Ice(int x, int y);
+   - virtual so that a base pointer will call the appropriate destructor 
+
+Protestor: 
+- Protestor(StudentWorld* world, int ID, int x, int y);
+   - constructor initializing the protestor with a pointer to world, a specific IID, an x, and a y position
+
+- virtual void doSomething(); 
+   - virtual in case I decided to implement a different doSomething() method for the hardcore. This ended up not being the case.
+   - function implements the protestor’s doSomething as ordered by the project guideling  
+
+- virtual ~Protestor(); 
+   - virtual destructor so that it can be called by a base class pointer. 
+
+- Various getters and setters for private member data omitted. 
+
+RegularProtestor: 
+- RegularProtestor(StudentWorld* world, int ID, int x, int y);
+   - constructor initializing a regular protester with a pointer to world, a specific IIC, an x, and a y position
+
+- void hurtIceman(); 
+   - do the amount of damage a regular protestor is supposed to do to iceman 
+
+- virtual bool searchForIceman(); 
+   - returns true if the regular protestor’s conditions for finding iceman were true. Made virtual in case I had the chance to implement this in the base class for the hardcore protestors too 
+
+- virtual bool canMoveToIceman(); 
+   - returns true if the regular protestor’s conditions for moving to iceman were true. Made virtual in case I had the chance to implement this in the base class for the hardcore protestors too who would move using the maze search algorithm
+
+- virtual ~RegularProtestor;
+   - virtual destructor so that it can be called by a base class pointer
+
+HardCoreProtestor:
+- not implemented
+
+Item: 
+- Item(StudentWorld* world, int ID, int x, int y);
+   - constructor for Item with a pointer to the StudentWorld
+
+- virtual void doSomething(); 
+   - doSomething for all item derived classes. Made virtual because its functionality will definitely be replaced 
+
+- virtual ~Item();
+   - virtual destructor so that it can be called by a base class pointer 
+
+Boulder: 
+- Boulder(StudentWorld* world, int x, int y);
+   - Constructor for boulder class 
+
+- virtual void doSomething();
+   - implements the boulder’s doSomething() method as described in the spec. Virtual so that it overrides item’s 
+
+- virtual ~Boulder; 
+   - virtual destructor so that it can be called by a base class pointer 
+
+GoldNugget: 
+- GoldNugget(StudentWorld* world, int x, int y);
+   - constructor for the GoldNugget class 
+
+- virtual void doSomething(); 
+   - implements GoldNugget’s doSomething() method as described in the spec. Virtual so that it overrides item’s 
+
+- virtual ~GoldNugget(); 
+   - virtual destructor so that it can be called by a base class pointer 
+
+Water: 
+- Water(StudentWorld* world, int x, int y); 
+   - constructor for the water class
+
+- virtual void doSomething(); 
+   - implements Water’s doSomething() method as described in the spec. Virtual so that it overrides item’s 
+
+- virtual ~Water(); 
+   - virtual destructor so that it can be called by a base class pointer 
+
+Squirt: 
+- Squirt(StudentWorld* world, int x, int y); 
+   - constructor for the squirt class
+
+- virtual void doSomething(); 
+   - implements Squirt’s doSomething() method as described in the spec. Virtual so that it overrides item’s 
+
+- virtual ~Squirt();
+   - virtual destructor so that it can be called by a base class pointer 
+
+SonarKit: 
+- SonarKit(StudentWorld* world, int x, int y); 
+   - constructor for the squirt class
+
+- virtual void doSomething(); 
+   - implements SonarKit’s doSomething() method as described in the spec. Virtual so that it overrides item’s 
+
+- virtual ~SonarKit();
+   - virtual destructor so that it can be called by a base class pointer 
+
+
+
+2. Functionality I failed to finish: 
+   - Placing gold nugget/tab key. Functionality for protestors to pick up gold nuggets was not added, nor was the functionality for iceman to drop it
+
+   - Hardcore protestors are never added into the game. Game currently only runs with regular protestors. 
+
+3. Design Decisions 
+- Guidelines were not explicit as to how to handle spawning water on boulders, so I decided to let them spawn there as that would follow the guidelines in a literal sense. From a gameplay perspective it also encourages interaction with boulders and rewards players with the reaction times to evade the boulder. Risk/Reward is a huge part of any videogame. 
+
+- Guidelines were not explicit about the iceman increasing his animation counter when interacting with a boulder. I thought it was boring to have him just stand there whenever you keep trying to move into a boulder so I made him increase his animation counter even when walking repeatedly into a boulder. This didn’t cause the game to lag in any way so I kept it that way. 
+
+- The squirt just hits the first protestor it comes into contact with and then deletes. In cases where protestors are overlapped this yields different behaviors in different cases. 
+
+4. How I tested 
+- Iceman:
+   I tested Iceman by making him move to all corners of the field and making sure his animation kept playing. I tested his interaction with ice to make sure that he removed ice in an appropriate manner. Furthermore, I tested his interaction with various objects, making sure that all the keypresses did what they were intended to do and that when he picked up objects they were properly added into his inventory.
+
+- Ice: 
+   I tested Ice breaking by making the iceman moving around the field and having his doSomething method always call the destroyIce() method when relevant. I also made sure that ice was actually properly deleted whenever it needed to be and did not just set itself to invisible. In fact my Ice never does that. In retrospect the ice could’ve been stored as a boolean. 
+
+- Boulder: 
+   First I had to come up with a way to get boulders to set themselves in random places on the field and follow the constraints in the design. Then I tested the player’s collisions with the boulder and ensured that he couldn’t go through them. Then I added the boulder states and made it so that they fell until they hit a boundary. Then I got them to interact with several other game objects including the iceman until it was pretty much a finished product. 
+
+- Barrels: 
+   First had to make sure they were placed appropriately and randomly. Then I tested to make sure that they didn’t spawn too close to other game objects. This was all done while the barrels were visible. I then set the level to something insanely high just to see how the program’s init() method handeled that many barrels spawning. The last step I took was setting it to invisible and letting the player interact with the barrel and having the progression of levels depend upon how many barrels there are left. 
+
+- Water: 
+   First had to get them spawning randomly. Then I had to get them spawning randomly and spawning in appropriate places. I checked to make sure that they stayed on the field for an appropriate amount of time and then I checked to make sure that they added an appropriate amount of waters to the player’s inventory when they were picked up.       
+
+- Squirts:
+   Had to get them to spawn in a correct location based on which direction the player is currently facing. Next step was to get them to disappear if appropriate, or move if it still has moves left. Interactions with protestors was added after this. Had to make sure that the squirts were also appropriately deleted when they met with an indestructible object. 
+
+- Gold Nugget: 
+   Similar pickup conditions as other objects but increase score by different amount and play a unique sound. Made sure it behaved appropriately and got placed appropriately by initially setting as visible. Then set it to invisible upon initialization and made sure it revealed itself to the player when they came within a close enough radius of each other. Set level really high to make sure that the amount of gold was appropriate for much higher levels. 
+
+- Regular Protestor: 
+   Test different line-of-sight interactions with the iceman to make sure that the protestor still moves or does something regardless of if he sees iceman or not. Test if they can die to boulder falling. Test if they die after being squirted several times. Trace different mazes through the icefield and test that they actually follow the shortest and most optimal path to get out of the maze. Test that they make the sounds you’d expect them to make where appropriate. 
